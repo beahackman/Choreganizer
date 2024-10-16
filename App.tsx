@@ -7,6 +7,7 @@
 
 import React from 'react';
 import type {PropsWithChildren} from 'react';
+//import backgroundImage from "./images/backgroundBlur.png";
 import {
   SafeAreaView,
   ScrollView,
@@ -15,6 +16,9 @@ import {
   Text,
   useColorScheme,
   View,
+  ImageBackground,
+  Image,
+  Button
 } from 'react-native';
 
 import {
@@ -25,35 +29,35 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+// type SectionProps = PropsWithChildren<{
+//   title: string;
+// }>;
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+// function Section({children, title}: SectionProps): React.JSX.Element {
+//   const isDarkMode = useColorScheme() === 'dark';
+//   return (
+//     <View style={styles.sectionContainer}>
+//       <Text
+//         style={[
+//           styles.sectionTitle,
+//           {
+//             color: isDarkMode ? Colors.white : Colors.black,
+//           },
+//         ]}>
+//         {title}
+//       </Text>
+//       <Text
+//         style={[
+//           styles.sectionDescription,
+//           {
+//             color: isDarkMode ? Colors.light : Colors.dark,
+//           },
+//         ]}>
+//         {children}
+//       </Text>
+//     </View>
+//   );
+// }
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -63,55 +67,63 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <ImageBackground source={require('./assets/images/backgroundBlur.png')} style={styles.background} // Set a proper style
+        resizeMode="cover" >
+          <Image
+            style={styles.houseGraphic}
+            source={require('./assets/images/houseGraphic.png')}
+          />
+          <Text style={styles.h2}>welcome to</Text>
+          <Text style={styles.h1}>Choreganizer!</Text>
+          <Button
+            onPress={()=>console.log("hello world!")}
+            title="Create a home"
+            color='#6D74C9'
+          />
+          <Button
+            onPress={()=>console.log("hello world!")}
+            title="Join a home"
+            accessibilityLabel="Learn more about this purple button"
+            color='#000'
+          />
+        </ImageBackground>
+      </View>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+   background: {
+    flex: 1, 
+    justifyContent: 'center',  
+    alignItems: 'center',
+    width: '100%' 
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  houseGraphic: {
+    width: 300,
+    height: 300,  // Add a height here to avoid cropping
+    resizeMode: 'contain', // Use contain to keep the aspect ratio
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  h1: {
+    color: '#5A4C9C',
+    fontWeight: 'bold',
+    fontSize: 48
   },
-  highlight: {
-    fontWeight: '700',
+  h2: {
+    color: '#6D74C9',
+    fontWeight: 'bold',
+    fontSize: 32
+  },
+  buttonPrimary:{
+    color: '#6D74C9'
+  },
+  buttonSecondary:{
+
   },
 });
 
